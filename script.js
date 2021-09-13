@@ -3,8 +3,8 @@ class Ball{
   constructor(x, y, w, h, vx, vy,_color) {
     this.x = x;
     this.y = y;
-    this.width = w;
-    this.height = h;
+    this.w = w;
+    this.h = h;
     this.vx = vx;
     this.vy = vy;
     this.color = _color;
@@ -12,7 +12,7 @@ class Ball{
 
   draw(){
     fill(this.color);
-    ellipse(this.x,this.y,50,50);
+    ellipse(this.x,this.y,this.w,this.h);
     this.x = this.x + this.vx;
     this.y = this.y + this.vy;
 
@@ -27,24 +27,27 @@ class Ball{
 }
 
 
-var ball1, ball2, ball3;
+var balls = [];
 
 function setup() {
 	createCanvas(400, 300);
 
-  ball1 = new Ball(30,200,50,50,5,5,"red");
-
-  ball2 = new Ball(120,210,50,50,3,3,"blue");
-
-  ball3 = new Ball(200,150,50,50,1,1,"green");
-
+  for (let i = 0; i < 10; i++) {
+    let x = Math.floor(Math.random() * 400) + 1;
+    let y = Math.floor(Math.random() * 300) + 1;
+    let vx = Math.floor(Math.random() * 6) + 1;
+    let vy =  Math.floor(Math.random() * 6) + 1;
+    let r = Math.floor(Math.random() * 50) + 1;
+    
+    let c = '#'+(Math.floor(Math.random() * 2 ** 24)).toString(16).padStart(0, 6);
+    let b = new Ball(x,y,r,r,vx,vy,c);
+    balls.push(b);
+  }
 }
 
 function draw() {
 	background(225);  
   
-  ball1.draw();
-  ball2.draw();
-  ball3.draw();
+  balls.forEach(b => b.draw());
 }
 
