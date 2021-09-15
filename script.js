@@ -1,3 +1,5 @@
+var WIDTH = 400, HEIGHT = 300;
+
 class Ball{
   
   constructor(x, y, w, h, vx, vy,_color) {
@@ -16,11 +18,11 @@ class Ball{
     this.x = this.x + this.vx;
     this.y = this.y + this.vy;
 
-    if(this.x < 25 || this.x >= 375){
+    if(this.x < (this.w / 2) || this.x >= WIDTH - (this.w / 2)){
       this.vx = this.vx * -1;
     }
 
-    if(this.y < 25 || this.y >= 275){
+    if(this.y < (this.h / 2) || this.y >= HEIGHT - (this.h / 2)){
       this.vy = this.vy * -1;
     }
   }
@@ -30,7 +32,7 @@ class Ball{
 var balls = [];
 
 function setup() {
-	createCanvas(400, 300);
+	createCanvas(WIDTH, HEIGHT);
 
   for (let i = 0; i < 10; i++) {
     let x = Math.floor(Math.random() * 400) + 1;
@@ -38,6 +40,9 @@ function setup() {
     let vx = Math.floor(Math.random() * 6) + 1;
     let vy =  Math.floor(Math.random() * 6) + 1;
     let r = Math.floor(Math.random() * 50) + 1;
+
+    x = Math.max(x,r);
+    y = Math.max(y,r);
     
     let c = '#'+(Math.floor(Math.random() * 2 ** 24)).toString(16).padStart(0, 6);
     let b = new Ball(x,y,r,r,vx,vy,c);
